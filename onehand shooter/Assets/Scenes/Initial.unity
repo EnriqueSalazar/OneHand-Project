@@ -222,10 +222,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  bulletSpeed: 10
   smooth: 5
-  angularVelocity: 0
-  angle: 0
-  axis: {x: 0, y: 0, z: 0}
+  bulletPrefab: {fileID: 1286949943118326, guid: c68da5d79d25501419bd638140b087d0,
+    type: 2}
+  fireFrecuency: 0.2
 --- !u!61 &1422986503
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -334,8 +335,8 @@ LineRenderer:
       m_RotationOrder: 0
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0, b: 0, a: 1}
+      key1: {r: 0.94482756, g: 1, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMobility : MonoBehaviour {
+public class PlayerMobility : MonoBehaviour
+{
 
-	public float speed;
-	public float smooth = 5;
+    public float speed = 5;
+    public float bulletSpeed = 10;
+    public float smooth = 5;
 
-	Rigidbody2D rigid2D;
+    Rigidbody2D rigid2D;
+    public GameObject bulletPrefab;
+    public float fireFrecuency = 0.5f;
 
-    void FixedUpdate(){
+    float delta = 0;
+    void FixedUpdate()
+    {
 
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
         Vector3 dir = Input.mousePosition - pos;
@@ -24,15 +30,36 @@ public class PlayerMobility : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
-		rigid2D = GetComponent<Rigidbody2D> ();
+        rigid2D = GetComponent<Rigidbody2D>();
 
     }
 
     // Update is called once per frame
-    void Update () {
-       
-        
+    void Update()
+    {
+        delta += Time.deltaTime;
+        if (delta >= fireFrecuency)
+        {
+            Fire();
+            delta = 0;
+        }
+    }
+
+    void Fire()
+    {
+        // Create the Bullet from the Bullet Prefab
+        var bullet = (GameObject)Instantiate(
+            bulletPrefab,
+            transform.position,
+            transform.rotation);
+
+        // Add velocity to the bullet
+        bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.up * bulletSpeed;
+
+        // Destroy the bullet after 2 seconds
+        Destroy(bullet, 2.0f);
     }
 }
