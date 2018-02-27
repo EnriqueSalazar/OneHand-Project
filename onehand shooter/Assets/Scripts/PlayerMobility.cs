@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMobility : MonoBehaviour
 {
 
-    public float speed = 5;
+    public float speed = 0.001f;
     public float bulletSpeed = 10;
     public float smooth = 5;
 
@@ -20,11 +20,20 @@ public class PlayerMobility : MonoBehaviour
         Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
         Vector3 dir = Input.mousePosition - pos;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float distance = Vector2.Distance(pos, Input.mousePosition);
+        // Debug.unityLogger.Log(distance);
         var targetRotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
 
         // Lerp to target rotation
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * smooth);
-        rigid2D.AddForce(gameObject.transform.up * speed);
+        Debug.Log(distance);
+        Debug.Log(speed);
+        Debug.Log(distance * speed);
+        // rigid2D.velocity = gameObject.transform.up * speed * distance;
+        if (distance < 100){
+            distance = distance * -5;
+        }
+        rigid2D.AddForce(gameObject.transform.up * speed * distance);
 
 
     }
